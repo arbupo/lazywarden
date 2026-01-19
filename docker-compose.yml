@@ -4,11 +4,11 @@ services:
     hostname: lazywarden
     image: querylab/lazywarden:latest
     env_file:
-      - .env
+      - ~/selfhosted/lazywarden/.env
     environment:
       UNLOCK_VAULT: "true"
     volumes:
-      - /root/lazywarden/config:/root/lazywarden/config
-      - /root/lazywarden/backup-drive:/root/lazywarden/backup-drive/
-      - /root/lazywarden/.env:/app/.env
+      - ~/selfhosted/lazywarden/config:/root/lazywarden/config
+      - ~/selfhosted/lazywarden/backup-drive:/root/lazywarden/backup-drive/
+      - ~/selfhosted/lazywarden/.env:/app/.env
     restart: unless-stopped

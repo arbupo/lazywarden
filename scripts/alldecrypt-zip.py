@@ -124,6 +124,9 @@ BW_IDENTITY_URL = os.getenv("IDENTITY_URL")
 BW_ORGANIZATION_ID = os.getenv("ORGANIZATION_ID")
 BW_ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 TIMESTAMP = os.getenv("TIMESTAMP")
+ENCRYPTION_PASSWORD_ID = os.getenv("ENCRYPTION_PASSWORD")
+ZIP_PASSWORD_ID = os.getenv("ZIP_PASSWORD")
+ZIP_ATTACHMENT_PASSWORD_ID = os.getenv("ZIP_ATTACHMENT_PASSWORD")
 
 if not all([BW_API_URL, BW_IDENTITY_URL, BW_ORGANIZATION_ID, BW_ACCESS_TOKEN, TIMESTAMP]):
     raise ValueError("One or more environment variables are not set. Check your .env file.")
@@ -170,9 +173,9 @@ def get_secret(secret_id):
         raise
 
 # Retrieve secrets from Bitwarden Secret Manager
-ENCRYPTION_PASSWORD = get_secret("588b0643-7ba4-4a78-ba3e-9467ad9c81a7")
-ZIP_PASSWORD = get_secret("3bcadf27-446d-47f0-b929-b1469fa58546")
-ZIP_ATTACHMENT_PASSWORD = get_secret("89d458e7-9ac4-431e-9f23-95cb4b8cff86")
+ENCRYPTION_PASSWORD = get_secret(ENCRYPTION_PASSWORD_ID)
+ZIP_PASSWORD = get_secret(ZIP_PASSWORD_ID)
+ZIP_ATTACHMENT_PASSWORD = get_secret(ZIP_ATTACHMENT_PASSWORD_ID)
 
 def decrypt(encrypted_data, password):
     """
@@ -207,8 +210,8 @@ def decrypt(encrypted_data, password):
         raise
 
 # Paths of files using the TIMESTAMP
-ENCRYPTED_ZIP_FILE_PATH = f"/root/lazywarden/backup-drive/bw-backup_{TIMESTAMP}.zip"
-DECRYPTED_ZIP_DIR_PATH = f"/root/lazywarden/backup-drive/decrypted_zip_{TIMESTAMP}"
+ENCRYPTED_ZIP_FILE_PATH = f"/Users/silo/selfhosted/lazywarden/backup-drive/bw-backup_{TIMESTAMP}.zip"
+DECRYPTED_ZIP_DIR_PATH = f"/Users/silo/selfhosted/lazywarden/backup-drive/decrypted_zip_{TIMESTAMP}"
 DECRYPTED_JSON_FILE_PATH = os.path.join(DECRYPTED_ZIP_DIR_PATH, f"decrypted_bw-backup_{TIMESTAMP}.json")
 DECRYPTED_ATTACHMENTS_DIR_PATH = os.path.join(DECRYPTED_ZIP_DIR_PATH, "attachments")
 
